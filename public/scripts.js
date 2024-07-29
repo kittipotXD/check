@@ -6,7 +6,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     formData.append('dutyDate', document.getElementById('dutyDate').value);
     formData.append('dutyPhoto', document.getElementById('dutyPhoto').files[0]);
 
-    fetch('http://localhost:3000/upload', {
+    fetch('/upload', {
         method: 'POST',
         body: formData
     })
