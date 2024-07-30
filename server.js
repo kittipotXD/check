@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
+const data = require('./data.json');
 
 const app = express();
 const PORT = 3000;
@@ -22,10 +23,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/data',(req,res)=>{
+    res.json(data)
+})
 
 app.get('/datetime', (req, res) => {
     const currentDateTime = new Date();
