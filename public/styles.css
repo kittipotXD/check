@@ -45,3 +45,29 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+.title {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+    font-style: italic;
+    position: relative;
+}
+
+.title::before,
+.title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.title::before {
+    left: 0;
+}
+
+.title::after {
+    right: 0;
+}
