@@ -3,12 +3,14 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
-const data = require('./data.json');
+const data = require('./data.json')
 
 const app = express();
 const PORT = 3000;
 
+
 app.use(cors());
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -21,15 +23,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static("uploads"))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(dirname, 'public')));
 
-app.get('/data', (req, res) => {
-    res.json(data);
+app.get('/data', (req,res)=>{
+    res.json(data)
 });
+
 
 app.get('/datetime', (req, res) => {
     const currentDateTime = new Date();
@@ -40,18 +43,21 @@ app.get('/datetime', (req, res) => {
     res.json(dateTimeObject);
 });
 
+
 app.post('/upload', upload.single('dutyPhoto'), (req, res) => {
     const { studentName, dutyDate } = req.body;
     const dutyPhoto = req.file.path;
 
-    const newData = {
+
+    const data = {
         studentName,
         dutyDate,
         dutyPhoto
     };
 
+
     let jsonData = [];
-    const dataFilePath = path.join(__dirname, 'data.json');
+    const dataFilePath = path.join(dirname, 'data.json');
     if (fs.existsSync(dataFilePath)) {
         const fileData = fs.readFileSync(dataFilePath, 'utf8');
         if (fileData) {
@@ -59,12 +65,15 @@ app.post('/upload', upload.single('dutyPhoto'), (req, res) => {
         }
     }
 
-    jsonData.push(newData);
+
+    jsonData.push(data);
+
 
     fs.writeFileSync(dataFilePath, JSON.stringify(jsonData, null, 2), 'utf8');
 
-    res.json({ success: true, data: newData });
+    res.json({ success: true, data });
 });
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
