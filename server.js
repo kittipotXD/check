@@ -3,7 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
-const data = require('./data.json');
+const data = require('./data.json')
 
 const app = express();
 const PORT = 3000;
