@@ -3,7 +3,6 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
-const data = require('./data.json')
 
 const app = express();
 const PORT = 3000;
@@ -23,17 +22,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.use(express.static("uploads"))
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/data', (req,res)=>{
-    res.json(data)
-});
-
-
+ 
 app.get('/datetime', (req, res) => {
     const currentDateTime = new Date();
     const dateTimeObject = {
@@ -42,7 +35,6 @@ app.get('/datetime', (req, res) => {
     };
     res.json(dateTimeObject);
 });
-
 
 app.post('/upload', upload.single('dutyPhoto'), (req, res) => {
     const { studentName, dutyDate } = req.body;
@@ -57,7 +49,7 @@ app.post('/upload', upload.single('dutyPhoto'), (req, res) => {
 
 
     let jsonData = [];
-    const dataFilePath = path.join(dirname, 'data.json');
+    const dataFilePath = path.join(__dirname, 'data.json');
     if (fs.existsSync(dataFilePath)) {
         const fileData = fs.readFileSync(dataFilePath, 'utf8');
         if (fileData) {
@@ -67,7 +59,6 @@ app.post('/upload', upload.single('dutyPhoto'), (req, res) => {
 
 
     jsonData.push(data);
-
 
     fs.writeFileSync(dataFilePath, JSON.stringify(jsonData, null, 2), 'utf8');
 
