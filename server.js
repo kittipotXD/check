@@ -82,7 +82,8 @@ app.get('/datetime', (req, res) => {
 // Endpoint เพื่ออัพโหลดไฟล์และบันทึกข้อมูลในไฟล์ data.json
 app.post('/upload', upload.single('dutyPhoto'), (req, res) => {
     const { studentName, dutyDate } = req.body;
-    const dutyPhoto = req.file.path;
+    const dutyPhotoPath = req.file.path; // ใช้ path เดิม
+    const dutyPhoto = `https://check.pa63.thistine.com/${dutyPhotoPath}`; // เปลี่ยนเป็น URL
 
     const data = {
         studentName,
