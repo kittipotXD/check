@@ -86,7 +86,8 @@ app.get('/datetime', (req, res) => {
 app.post('/upload', upload.single('dutyPhoto'), (req, res) => {
     const { studentName, dutyDate } = req.body;
     const dutyPhotoPath = req.file.path; // ใช้ path เดิม
-    const dutyPhoto = `https://check.pa63.thistine.com/${dutyPhotoPath}`; // เปลี่ยนเป็น URL
+    const dutyPhoto = `https://check.pa63.thistine.com/uploads/${path.basename(dutyPhotoPath)}`; // Change to use only the filename
+
 
     const data = {
         studentName,
