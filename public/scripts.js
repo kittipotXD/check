@@ -14,6 +14,13 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     .then(data => {
         if (data.success) {
             alert('การยืนยันสำเร็จ!');
+            
+            const dataDisplay = document.getElementById('dataDisplay');
+            dataDisplay.innerHTML = `
+                <p>ชื่อนักเรียน: ${data.data.studentName}</p>
+                <p>วันที่ทำเวร: ${data.data.dutyDate}</p>
+                <p>รูปภาพ: <a href="${data.data.dutyPhoto}" target="_blank">ดูรูปภาพที่นี่</a></p>
+            `;
         } else {
             alert('มีข้อผิดพลาดในการยืนยัน');
         }
