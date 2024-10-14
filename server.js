@@ -13,6 +13,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/data.json', express.static(path.join(__dirname, 'data.json')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // ฟังก์ชันเพื่อเปรียบเทียบข้อมูล
 function compareData(localData, externalData) {
     return {
